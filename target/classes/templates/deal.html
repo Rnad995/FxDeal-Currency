@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Create Request </title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+	
+<style>	
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+.container{
+  max-width: 700px;
+  width: 100%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+.container .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.container .title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+.content form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box {
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+
+form .input-box span.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box input, select{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #9b59b6;
+}
+.user-details .input-box select:valid{
+  border-color: #9b59b6;
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .category{
+   display: flex;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ form .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #9b59b6;
+   border-color: #d9d9d9;
+ }
+ form input[type="radio"]{
+   display: none;
+ }
+ form .button{
+   height: 45px;
+   margin: 35px 0
+ }
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button input:hover{
+  /* transform: scale(0.99); */
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+ @media(max-width: 584px){
+ .container{
+  max-width: 100%;
+}
+form .user-details .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  form .category{
+    width: 100%;
+  }
+  .content form .user-details{
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .user-details::-webkit-scrollbar{
+    width: 5px;
+  }
+  }
+  @media(max-width: 459px){
+  .container .content .category{
+    flex-direction: column;
+  }
+}
+	</style>
+  <div class="container">
+    <div class="title">Currency Request</div>
+    <div class="content">
+      <form action="#">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Origin Currency</span>
+             <select class="drop-box" name="selectOriginDeal" id="selectOriginDeal" >
+	            
+        	</select>
+          </div>
+          <div class="input-box">
+            <span class="details">Converting Currency</span>
+			<select class="drop-box" name="selectCurrencyDeal" id="selectCurrencyDeal">
+	            
+        	</select> 
+          </div>
+          <div class="input-box">
+            <span class="details">Amount </span>
+            <input id="valueInput" name="valueInput" type="number" placeholder="Enter Amount Of Currency" required min="0" max="10000" >
+          </div>
+          <div class="input-box">
+            <input type="text" hidden name="valueCurrencyPrice" id="valueCurrencyPrice" placeholder="Enter Currency Price" >
+          </div>
+          <div class="input-box">
+            <span class="details">Registeration Date </span>
+               <div class="rendered-form">
+						<input type="date" class="form-control" name="registerationDate" access="false" id="RegisterDate" onchange="validateDate(this, 'dateError')" required>
+						<span id="dateError" style="color: red;"></span>
+
+        			 <input type="text" id = "viewAmount" hidden value="" onclick="">
+
+				</div>
+	
+			</div>
+        </div>
+        <div class="button">
+          <input type="submit" id="submitButton" value="Create Currency Request" onclick="fn_saveRequest()">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	
+	function fn_saveRequest() {
+    var value = document.getElementById("valueInput").value;
+    var selectElement = document.getElementById("selectOriginDeal");
+	var selectedOption = selectElement.options[selectElement.selectedIndex];
+	var  selectOriginDealValue = selectedOption.value;
+	var selectOriginDealName = selectedOption.text;
+	
+    var selectOriginDeal = document.getElementById("selectCurrencyDeal");
+	var selectedOption = selectOriginDeal.options[selectOriginDeal.selectedIndex];
+	var selectCurrencyDealValue = selectedOption.value;
+	var selectCurrencyDealName = selectedOption.text;
+	var valueCurrencyPrice = document.getElementById("valueCurrencyPrice").value;
+	var RegisterDate = document.getElementById("RegisterDate").value;
+
+    var requestData = {
+        valueInput: value,
+        selectCurrencyDealName: selectCurrencyDealName,
+        selectOriginDealName: selectOriginDealName,
+        valueCurrencyPrice: valueCurrencyPrice,
+        RegisterDate: RegisterDate
+    };
+      if (!value || !selectOriginDeal || !selectCurrencyDeal  || !RegisterDate) {
+        alert("Please fill in all required fields.");
+        return false;
+    }
+ 
+    $.ajax({
+        type: "POST",
+        url: "/saveRequest",
+        contentType: "application/json",
+        data: JSON.stringify(requestData),
+        success: function (data) {
+            alert("Request is created successfully");
+        },
+        error: function (error) {
+            alert("The Request is exist in database, Please Add a new Request");
+        }
+    });
+}
+	
+</script>
+<script>
+	
+	window.onload = function(){
+	
+		var currencies = document.getElementById("selectOriginDeal");
+		var currenciesto = document.getElementById("selectCurrencyDeal");
+		function getAll(dropdown){
+			fetch('/getAllCurrencies')
+		  .then(response => {
+		    if (response.ok) {
+		      return response.json();
+		    } else {
+		      throw new Error('Request failed.');
+		    }
+		  })
+		  .then(list => {			
+			
+			// Check if dropdown element exists
+			if (dropdown) {
+			  // Loop through the list and create dropdown options
+			  for (let i = 0; i < list.length; i++) {
+			    const option = document.createElement('option');
+			    option.text = list[i].name;
+			    option.value = list[i].value;
+			    dropdown.add(option);
+			    selectCurrencyDeal = dropdown;
+			  }
+			
+			} else {
+			  console.error('Dropdown element not found');
+			}
+
+		  })
+		  .catch(error => {
+		    // Handle any errors
+		    alert(error);
+		  });
+		}
+		getAll(currencies)
+		getAll(currenciesto)
+		
+	}
+	function validateRegisterDate(input){
+		var selectedDate = new Date(input.value);
+	  var today = new Date();
+	
+	  // Set the time to midnight for both dates to compare only the dates
+	  selectedDate.setHours(0, 0, 0, 0);
+	  today.setHours(0, 0, 0, 0);
+	
+	  if (selectedDate < today) {
+	    return false;
+	}
+	}
+	function validateDate(input, errorId) {
+	  var selectedDate = new Date(input.value);
+	  var today = new Date();
+	
+	  // Set the time to midnight for both dates to compare only the dates
+	  selectedDate.setHours(0, 0, 0, 0);
+	  today.setHours(0, 0, 0, 0);
+	
+	  if (selectedDate < today) {
+	    document.getElementById(errorId).textContent = "Selected date must be today or later";
+	    input.setCustomValidity("Selected date must be today or later");
+    	document.getElementById("submitButton").disabled = true;
+	
+	  } else {
+	    document.getElementById(errorId).textContent = "";
+	    input.setCustomValidity("");
+	     document.getElementById("submitButton").disabled = false; 
+
+	  }
+	}
+</script>
+</html>
